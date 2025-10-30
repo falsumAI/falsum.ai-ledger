@@ -1,5 +1,8 @@
 ﻿import fs from "node:fs";
 
+const fromEnvPortal = process.env.HUBSPOT_PORTAL_ID;
+const fromEnvForm = process.env.HUBSPOT_FORM_ID;
+
 const errors = [];
 let cfg;
 
@@ -12,31 +15,19 @@ try {
 
 if (!cfg.payments?.enabled) errors.push("payments must be enabled");
 if (!cfg.payments?.product_url) errors.push("payments.product_url is required");
+
 if (!cfg.crm?.enabled) errors.push("crm must be enabled");
 
-const missingPortal = !cfg.crm?.hubspot_portal_id || cfg.crm?.hubspot_portal_id === "REPLACE_ME";
-const missingForm   = !cfg.crm?.hubspot_form_id || cfg.crm?.hubspot_form_id === "REPLACE_ME";
+const portal = fromEnvPortal || cfg.crm?.hubspot_portal_id;
+const form   = fromEnvForm   || cfg.crm?.hubspot_form_id;
 
-if (missingPortal) errors.push("crm.hubspot_portal_id is required (create HubSpot)");
-if (missingForm)   errors.push("crm.hubspot_form_id is required (create HubSpot)");
-
-const failIfCrmMissing = cfg.policy?.fail_if_crm_missing === true;
+if (!portal) errors.push("crm.hubspot_portal_id is required (secret or file)");
+if (!form)   errors.push("crm.hubspot_form_id is required (secret or file)");
 
 if (errors.length) {
-  const onlyHubspotMissing = errors.every(e =>
-    e.includes("crm.hubspot_portal_id") || e.includes("crm.hubspot_form_id")
-  );
-
-  if (failIfCrmMissing && !onlyHubspotMissing) {
-    console.error("❌ Rose config validation failed (non-HubSpot):");
-    for (const e of errors) console.error(" - " + e);
-    process.exit(1);
-  }
-
-  console.warn("⚠️ Rose config: HubSpot not created yet. CI allowed.");
-  for (const e of errors) console.warn(" - " + e);
-  process.exit(0);
+  console.error("❌ Rose config validation failed:");
+  for (const e of errors) console.error(" - " + e);
+  process.exit(1);
 }
 
-console.log("✅ config/payment.json OK");
-process.exit(0);
+console.log("✅ Rose config OK (env/file)");
