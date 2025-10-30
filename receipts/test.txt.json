@@ -1,0 +1,10 @@
+﻿{
+    "file":  "test.txt",
+    "sha256":  "38696B9BC8132FB638CD3308130DEBEF74230D6D4B9441658D8E75DC8C416E98",
+    "created_utc":  "2025-10-30T15:19:00.0218028Z",
+    "qr_svg":  "PLACEHOLDER",
+    "signatures":  [
+                       "PLACEHOLDER"
+                   ],
+    "baseline_verified":  true
+}

@@ -1,0 +1,25 @@
+{
+  "name": "falsum.ai-ledger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/falsumAI/falsum.ai-ledger.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/falsumAI/falsum.ai-ledger/issues"
+  },
+  "homepage": "https://github.com/falsumAI/falsum.ai-ledger#readme",
+  "devDependencies": {
+    "@eslint/css": "^0.14.0",
+    "@html-eslint/eslint-plugin": "^0.47.0",
+    "eslint": "^9.38.0"
+  }
+}

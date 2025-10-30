@@ -1,0 +1,23 @@
+﻿# 🌹 Project Rose — Drift Contract (corrected)
+version: 2
+source_of_truth:
+  - docs/continuedmemory10-28.pdf
+order_of_operations:
+  - github_pages_and_actions
+  - exports_to_receipts_verify
+  - payments_and_crm
+  - pro_ui_thankyou
+  - ci_shields
+  - qr_and_signatures
+  - transparency_log
+rules:
+  - "Assistant MUST restack answers to this order if user says: ROSE_RECONSTRUCT_10-28"
+  - "Assistant MUST NOT mark payments_and_crm as optional"
+  - "Assistant MUST bind creator capture to verify success"
+  - "Assistant MUST keep mobile-first + creators-first priority"
+triggers:
+  - ROSE_RECONSTRUCT_10-28
+  - ROSE_VERIFY_RUN
+notes:
+  owner: "Gregg Anthony Haynes"
+  intent: "no receipt without a human; no human without a contact channel"

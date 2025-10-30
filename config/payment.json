@@ -1,0 +1,18 @@
+﻿{
+  "payments": {
+    "enabled": true,
+    "provider": "gumroad",
+    "product_url": "https://gumroad.com/YOUR-PRODUCT"
+  },
+  "crm": {
+    "enabled": true,
+    "provider": "hubspot",
+    "hubspot_portal_id": "REPLACE_ME",
+    "hubspot_form_id": "REPLACE_ME",
+    "on_verify_success": true
+  },
+  "policy": {
+    "fail_if_crm_missing": true,
+    "fail_if_payment_missing": true
+  }
+}
