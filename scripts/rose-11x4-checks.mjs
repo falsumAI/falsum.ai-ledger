@@ -3,7 +3,7 @@
 const errors = [];
 const inCI = process.env.GITHUB_ACTIONS === "true";
 
-// 1) PDF source-of-truth check
+// 1) source PDF check
 const has28 = fs.existsSync("docs/continuedmemory10-28.pdf");
 const has30 = fs.existsSync("docs/continuedmemory10-30.pdf");
 if (!has28 && !has30) {
@@ -29,7 +29,7 @@ if (cfg) {
   if (!cfg.crm?.enabled) errors.push("L5/F6: CRM must be enabled");
 }
 
-// 3) receipts shape (only if folder exists)
+// 3) receipts shape
 if (fs.existsSync("receipts")) {
   const files = fs.readdirSync("receipts").filter(f => f.endsWith(".json"));
   for (const f of files) {
@@ -41,19 +41,13 @@ if (fs.existsSync("receipts")) {
   }
 }
 
-// =====================================================
-// CI-friendly exit
-// =====================================================
-//
-// - If we're in GitHub Actions AND the ONLY error is
-//   "PDF is missing", we WARN and exit 0 (let the PR merge)
-// - Otherwise, fail like before
-//
+// ===== CI-friendly exit =====
 if (errors.length) {
   const onlyPdfMissing = errors.every(e => e.startsWith("B1: source PDF missing"));
 
+  // in CI, and ONLY pdf is missing → allow
   if (inCI && onlyPdfMissing) {
-    console.warn("⚠️ 11x11x11x11: PDF not in repo yet, but we're in CI. Allowing.");
+    console.warn("⚠️ 11x11x11x11: PDF missing in CI, allowing PR.");
     process.exit(0);
   }
 
