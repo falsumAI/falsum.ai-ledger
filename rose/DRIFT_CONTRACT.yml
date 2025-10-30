@@ -2,6 +2,7 @@
 version: 2
 source_of_truth:
   - docs/continuedmemory10-28.pdf
+  - docs/continuedmemory10-30.pdf
 order_of_operations:
   - github_pages_and_actions
   - exports_to_receipts_verify
