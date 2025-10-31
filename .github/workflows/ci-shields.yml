@@ -1,1 +1,23 @@
-﻿
+﻿name: CI Shields
+on:
+  push:
+  pull_request:
+
+jobs:
+  lint-rose:
+    runs-on: ubuntu-latest
+    env:
+      HUBSPOT_PORTAL_ID: ${{ secrets.HUBSPOT_PORTAL_ID }}
+      HUBSPOT_FORM_ID: ${{ secrets.HUBSPOT_FORM_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate Rose config
+        run: node scripts/validate-config.mjs
+      - name: Run 11x11x11x11 protocol
+        run: node scripts/rose-11x4-checks.mjs
+      - name: PowerShell verify
+        shell: pwsh
+        run: ./scripts/rose-verify.ps1
