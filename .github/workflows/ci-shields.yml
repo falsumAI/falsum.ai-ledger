@@ -1,11 +1,15 @@
 ﻿name: CI Shields
 on:
   push:
+    branches: [ main, rose-scaffold ]
   pull_request:
 
 jobs:
   lint-rose:
     runs-on: ubuntu-latest
+    env:
+      HUBSPOT_PORTAL_ID: ${{ secrets.HUBSPOT_PORTAL_ID }}
+      HUBSPOT_FORM_ID: ${{ secrets.HUBSPOT_FORM_ID }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -18,3 +22,9 @@ jobs:
       - name: PowerShell verify
         shell: pwsh
         run: ./scripts/rose-verify.ps1
+      - name: HubSpot smoke (non-blocking)
+        if: ${{ always() }}
+        continue-on-error: true
+        run: |
+          echo "portal=${HUBSPOT_PORTAL_ID:-<none>}"
+          echo "form=${HUBSPOT_FORM_ID:-<none>}"
